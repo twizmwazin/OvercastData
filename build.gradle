@@ -1,0 +1,42 @@
+defaultTasks 'clean', 'build'
+
+subprojects {
+
+    group 'in.twizmwaz.overcastData'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        jcenter()
+    }
+
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    javadoc {
+        options.links(
+                'http://docs.guava-libraries.googlecode.com/git-history/v17.0/javadoc/',
+                'http://docs.oracle.com/javase/6/docs/api/'
+        )
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allJava
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    build.dependsOn(sourcesJar)
+    build.dependsOn(javadocJar)
+
+    artifacts {
+        archives jar
+        archives sourcesJar
+        archives javadocJar
+    }
+}

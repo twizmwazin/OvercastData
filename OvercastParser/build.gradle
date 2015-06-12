@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':OvercastAPI')
+    compile 'org.jsoup:jsoup:1.8.2'
+    testCompile 'junit:junit:4.11'
+}
